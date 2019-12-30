@@ -1,1 +1,1 @@
-"# react_githubfinder" 
+# GitHub Finder - react app

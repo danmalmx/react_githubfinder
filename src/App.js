@@ -5,7 +5,7 @@ import Users from './components/users/Users';
 import Search from './components/users/Search'
 import axios from 'axios';
 
-class App extends Component {  
+class App extends Component {
 
   state = {
     users: [],
@@ -17,12 +17,17 @@ class App extends Component {
     this.setState({users: res.data, loading: false})
   }
 
+  searchUsers = async (text) => {
+    const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+    this.setState({users: res.data.items, loading: false})
+  }
+
   render() {
-    return (      
+    return (
       <div className="App">
         <Navbar />
         <div className="container">
-          <Search />
+          <Search searchUsers={this.searchUsers}/>
           <Users loading={this.state.loading} users={this.state.users}/>
         </div>
 
